@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Carga de Datos Equipos Industriales</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app-screen">
+        <div class="header">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="#0078D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5 12C5 16.4183 7.23858 20 12 20C16.7614 20 19 16.4183 19 12C19 7.58172 16.7614 4 12 4C7.23858 4 5 7.58172 5 12Z" stroke="#0078D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 3V2" stroke="#0078D4" stroke-width="2" stroke-linecap="round"/>
+                <path d="M12 22V21" stroke="#0078D4" stroke-width="2" stroke-linecap="round"/>
+                <path d="M3 12H2" stroke="#0078D4" stroke-width="2" stroke-linecap="round"/>
+                <path d="M22 12H21" stroke="#0078D4" stroke-width="2" stroke-linecap="round"/>
+                <path d="M4.92969 5.07107L4.22257 4.36396" stroke="#0078D4" stroke-width="2" stroke-linecap="round"/>
+                <path d="M19.7783 19.636L19.0713 18.9289" stroke="#0078D4" stroke-width="2" stroke-linecap="round"/>
+                <path d="M4.92969 19 4.22257 19.7071" stroke="#0078D4" stroke-width="2" stroke-linecap="round"/>
+                <path d="M19.7783 4.36396L19.0713 5.07107" stroke="#0078D4" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <h1>Carga de Datos de Equipos Industriales</h1>
+        </div>
+        <form id="data-form">
+            <label for="operator">Nombre y Apellido del Operador:</label>
+            <input type="text" id="operator" required>
+            <label for="legajo">Legajo:</label>
+            <input type="text" id="legajo" required>
+            <label for="datetime">Fecha y Hora:</label>
+            <input type="text" id="datetime" readonly>
+            <label for="equipment-type">Tipo de Equipo:</label>
+            <select id="equipment-type" required>
+                <option value="">Seleccione...</option>
+                <option value="Motocompresor">Motocompresor</option>
+                <option value="Recompresor">Recompresor</option>
+                <option value="Turbo Expansor">Turbo Expansor</option>
+                <option value="Bomba">Bomba</option>
+                <option value="Separador">Separador</option>
+                <option value="Intercambiador">Intercambiador</option>
+                <option value="Filtro">Filtro</option>
+                <option value="Puente de Medición">Puente de Medición</option>
+                <option value="Torre">Torre</option>
+                <option value="Horno">Horno</option>
+                <option value="Aero Enfriador">Aero Enfriador</option>
+                <option value="Compresor de Aire">Compresor de Aire</option>
+                <option value="Válvula">Válvula</option>
+                <option value="Fosa">Fosa</option>
+                <option value="Tanques">Tanques</option>
+                <option value="Ablandador">Ablandador</option>
+                <option value="Cisterna">Cisterna</option>
+                <option value="CCM">CCM</option>
+                <option value="Shelter">Shelter</option>
+                <option value="Detectores y Pulsadores">Detectores y Pulsadores</option>
+                <option value="Compresores de Propano">Compresores de Propano</option>
+                <option value="Regenerador">Regenerador</option>
+                <option value="Cromatógrafo">Cromatógrafo</option>
+                <option value="Flare">Flare</option>
+                <option value="Otros Equipos o Instalaciones">Otros Equipos o Instalaciones</option>
+            </select>
+            <div id="general-fields">
+                <label for="tag">Número de TAG:</label>
+                <input type="text" id="tag">
+                <label for="location">Ubicación:</label>
+                <input type="text" id="location">
+                <label for="observations">Observaciones:</label>
+                <textarea id="observations"></textarea>
+            </div>
+            <div id="tanks-fields" style="display: none;">
+                <div class="tank-section">
+                    <h3>Tanque 1 (Propano Fuera de Especificación)</h3>
+                    <label for="tank1-level">Nivel (cm):</label>
+                    <input type="number" id="tank1-level">
+                    <label for="tank1-pressure">Presión (kg/cm²):</label>
+                    <input type="number" id="tank1-pressure">
+                    <label for="tank1-temp">Temperatura (°C):</label>
+                    <input type="number" id="tank1-temp">
+                </div>
+                <div class="tank-section">
+                    <h3>Tanque 2 (Butano Fuera de Especificación)</h3>
+                    <label for="tank2-level">Nivel (cm):</label>
+                    <input type="number" id="tank2-level">
+                    <label for="tank2-pressure">Presión (kg/cm²):</label>
+                    <input type="number" id="tank2-pressure">
+                    <label for="tank2-temp">Temperatura (°C):</label>
+                    <input type="number" id="tank2-temp">
+                </div>
+                <div class="tank-section">
+                    <h3>Tanque 3 (Butano)</h3>
+                    <label for="tank3-level">Nivel (cm):</label>
+                    <input type="number" id="tank3-level">
+                    <label for="tank3-pressure">Presión (kg/cm²):</label>
+                    <input type="number" id="tank3-pressure">
+                    <label for="tank3-temp">Temperatura (°C):</label>
+                    <input type="number" id="tank3-temp">
+                </div>
+                <div class="tank-section">
+                    <h3>Tanque 4 (Butano)</h3>
+                    <label for="tank4-level">Nivel (cm):</label>
+                    <input type="number" id="tank4-level">
+                    <label for="tank4-pressure">Presión (kg/cm²):</label>
+                    <input type="number" id="tank4-pressure">
+                    <label for="tank4-temp">Temperatura (°C):</label>
+                    <input type="number" id="tank4-temp">
+                </div>
+                <div class="tank-section">
+                    <h3>Tanque 5 (Propano)</h3>
+                    <label for="tank5-level">Nivel (cm):</label>
+                    <input type="number" id="tank5-level">
+                    <label for="tank5-pressure">Presión (kg/cm²):</label>
+                    <input type="number" id="tank5-pressure">
+                    <label for="tank5-temp">Temperatura (°C):</label>
+                    <input type="number" id="tank5-temp">
+                </div>
+                <div class="tank-section">
+                    <h3>Tanque 6 (Propano)</h3>
+                    <label for="tank6-level">Nivel (cm):</label>
+                    <input type="number" id="tank6-level">
+                    <label for="tank6-pressure">Presión (kg/cm²):</label>
+                    <input type="number" id="tank6-pressure">
+                    <label for="tank6-temp">Temperatura (°C):</label>
+                    <input type="number" id="tank6-temp">
+                </div>
+                <div class="tank-section">
+                    <h3>Tanque 7 (Gasolina)</h3>
+                    <label for="tank7-level">Altura (cm):</label>
+                    <input type="number" id="tank7-level">
+                </div>
+            </div>
+            <label for="status">Estado de Equipo:</label>
+            <select id="status" required>
+                <option value="">Seleccione...</option>
+                <option value="Operativo">Operativo</option>
+                <option value="En mantenimiento">En mantenimiento</option>
+                <option value="Fuera de Servicio">Fuera de Servicio</option>
+                <option value="Stand by">Stand by</option>
+            </select>
+            <label for="photos">Fotografías (hasta 3):</label>
+            <input type="file" id="photos" accept="image/*" multiple>
+            <button type="button" id="generate-report">Descargar Informe</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
